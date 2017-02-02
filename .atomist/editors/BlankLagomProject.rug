@@ -1,8 +1,8 @@
-@description "Creates a lagom project with a single service api and impl"
+@description "Creates a blank lagom project"
 @tag "scala"
 @tag "lagom"
 @generator
-editor NewLagomProject
+editor BlankLagomProject
 
 @displayName "Project Name"
 @description "Name of your new project"
@@ -34,15 +34,7 @@ param group_id: @group_id
 @default "0.1.0-SNAPSHOT"
 param version: @semantic_version
 
-@displayName "service name"
-@description "The name of the new service"
-@validInput "Free Text"
-param service_name: @any
-
-@displayName "package"
-@description "The package for the API to live in"
-@validInput "Free Text"
-param package_name: @any
-
-BlankLagomProject
-NewLagomApi
+with File when path = "build.sbt" begin
+  do replace "{{organization}}" group_id
+  do replace "{{version}}" version
+end

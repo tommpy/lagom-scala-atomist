@@ -6,14 +6,27 @@ let version = "0.0.1"
 let group_id = "mypackage"
 
 let service_name = "Foo"
-let package = "mypackage.foo"
+let package_name = "mypackage.foo"
+
+let apiFile = "foo-api/src/main/scala/mypackage/foo/FooService.scala"
+let buildFile = "build.sbt"
+
+let apiBuildProject =  """
+lazy val myApi = project("my-api")
+  .settings(version := "1.0-SNAPSHOT")
+  .settings(
+    libraryDependencies += lagomScaladslApi
+  )
+"""
 
 given
     ArchiveRoot
-    NewLagomProject
 
 when
-    NewLagomApi
+    NewLagomProject
 
 then
-    fileExists "build.sbt"
+    fileExists buildFile
+        and fileContains buildFile """lazy val myApi = project("my-api")"""
+    and fileExists apiFile
+        and fileContains apiFile "trait FooService extends Service"

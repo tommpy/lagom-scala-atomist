@@ -13,7 +13,19 @@ param service_name: @any
 @validInput "Free Text"
 param package_name: @any
 
-let template = "LagomApi.mustache"
+let apiFile = {service_name.toLowerCase() + "-api" + "/src/main/scala/" + package_name.toLowerCase().replace(".", "/") + "/" + service_name + "Service.scala"}
+
+let newApiProject = """
+lazy val myApi = project("my-api")
+    .settings(version := "1.0-SNAPSHOT")
+    .settings(
+    libraryDependencies += lagomScaladslApi
+)
+"""
 
 with Project p
-    do merge template to {service_name + "/src/main/" + package_name + "Service.scala"}
+    do merge "LagomApi.mustache" to apiFile
+
+
+with File f when path = "build.sbt"
+    do append newApiProject
