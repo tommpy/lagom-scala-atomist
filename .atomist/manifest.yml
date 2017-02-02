@@ -1,0 +1,10 @@
+group: lagom-atomist-rugs
+artifact: lagom-scala-atomist
+version: "0.1.0"
+
+requires: "[0.10.0,1.0.0)"
+
+dependencies:
+- "atomist-rugs:common-editors:0.6.0"
+
+extensions:

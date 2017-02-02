@@ -1,0 +1,19 @@
+@tag "scala"
+@tag "lagom"
+@description "Adds a new lagom API"
+editor NewLagomApi
+
+@displayName "service name"
+@description "The name of the new service"
+@validInput "Free Text"
+param service_name: @any
+
+@displayName "package"
+@description "The package for the API to live in"
+@validInput "Free Text"
+param package_name: @any
+
+let template = "LagomApi.mustache"
+
+with Project p
+    do merge template to {service_name + "/src/main/" + package_name + "Service.scala"}

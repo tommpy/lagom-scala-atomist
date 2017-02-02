@@ -1,0 +1,19 @@
+scenario NewLagomProject should pass smoke test
+
+let project_name = "MyService"
+let artifact_id = "foo"
+let version = "0.0.1"
+let group_id = "mypackage"
+
+let service_name = "Foo"
+let package = "mypackage.foo"
+
+given
+    ArchiveRoot
+    NewLagomProject
+
+when
+    NewLagomApi
+
+then
+    fileExists "build.sbt"
